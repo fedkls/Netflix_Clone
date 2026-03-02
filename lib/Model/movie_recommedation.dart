@@ -1,27 +1,27 @@
 // To parse this JSON data, do
 //
-//     final trendingMovies = trendingMoviesFromJson(jsonString);
+//     final movieRecommedations = movieRecommedationsFromJson(jsonString);
 
 import 'dart:convert';
 
-TrendingMovies trendingMoviesFromJson(String str) => TrendingMovies.fromJson(json.decode(str));
+MovieRecommedations movieRecommedationsFromJson(String str) => MovieRecommedations.fromJson(json.decode(str));
 
-String trendingMoviesToJson(TrendingMovies data) => json.encode(data.toJson());
+String movieRecommedationsToJson(MovieRecommedations data) => json.encode(data.toJson());
 
-class TrendingMovies {
+class MovieRecommedations {
   int page;
   List<Result> results;
   int totalPages;
   int totalResults;
 
-  TrendingMovies({
+  MovieRecommedations({
     required this.page,
     required this.results,
     required this.totalPages,
     required this.totalResults,
   });
 
-  factory TrendingMovies.fromJson(Map<String, dynamic> json) => TrendingMovies(
+  factory MovieRecommedations.fromJson(Map<String, dynamic> json) => MovieRecommedations(
     page: json["page"],
     results: List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
     totalPages: json["total_pages"],
@@ -118,10 +118,14 @@ final mediaTypeValues = EnumValues({
 
 enum OriginalLanguage {
   EN,
+  FR,
+  HI
 }
 
 final originalLanguageValues = EnumValues({
   "en": OriginalLanguage.EN,
+  "fr": OriginalLanguage.FR,
+  "hi": OriginalLanguage.HI
 });
 
 class EnumValues<T> {

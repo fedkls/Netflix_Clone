@@ -136,7 +136,6 @@ class _NetflixHomeScreenState extends State<NetflixHomeScreen> {
                                 itemBuilder: (context, index) {
                                   final movie = movies[index];
                                   return GestureDetector(
-                                    onTap: () {},
                                     child: Container(
                                       height: 530,
                                       width: 380,
@@ -288,7 +287,6 @@ class _NetflixHomeScreenState extends State<NetflixHomeScreen> {
                             return Padding(
                               padding: const EdgeInsets.only(right: 8),
                               child: GestureDetector(
-                                onTap: () {},
                                 child: Container(
                                   width: 130,
                                   decoration: BoxDecoration(
