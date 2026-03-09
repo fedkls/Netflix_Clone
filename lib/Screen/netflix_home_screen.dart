@@ -6,6 +6,8 @@ import 'package:project_netflix_clone/Model/popular_tv_series.dart';
 import 'package:project_netflix_clone/Model/top_rated_movie.dart';
 import 'package:project_netflix_clone/Model/trending_movie.dart';
 import 'package:project_netflix_clone/Model/upcoming_movie.dart';
+import 'package:project_netflix_clone/Screen/movie_detailed_screen.dart';
+import 'package:project_netflix_clone/Screen/search_screen.dart';
 import 'package:project_netflix_clone/Utils/utils.dart';
 
 class NetflixHomeScreen extends StatefulWidget {
@@ -45,7 +47,15 @@ class _NetflixHomeScreenState extends State<NetflixHomeScreen> {
             child: Row(children: [
               Image.asset("assets/logo.png", height: 50),
               Spacer(),
-              IconButton(onPressed: () {}, icon: Icon(Icons.search, size: 27, color: Colors.white)),
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SearchScreen()),
+                    );
+                  },
+                  icon: Icon(Icons.search, size: 27, color: Colors.white),
+              ),
               Icon(Icons.download_sharp, size: 27, color: Colors.white),
               SizedBox(width: 10),
               Icon(Icons.cast, size: 27, color: Colors.white),
@@ -136,6 +146,16 @@ class _NetflixHomeScreenState extends State<NetflixHomeScreen> {
                                 itemBuilder: (context, index) {
                                   final movie = movies[index];
                                   return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => MovieDetailedScreen(
+                                                  movieId: movie.id,
+                                              ),
+                                          ),
+                                      );
+                                    },
                                     child: Container(
                                       height: 530,
                                       width: 380,
@@ -287,6 +307,16 @@ class _NetflixHomeScreenState extends State<NetflixHomeScreen> {
                             return Padding(
                               padding: const EdgeInsets.only(right: 8),
                               child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MovieDetailedScreen(
+                                        movieId: movie.id,
+                                      ),
+                                    ),
+                                  );
+                                },
                                 child: Container(
                                   width: 130,
                                   decoration: BoxDecoration(

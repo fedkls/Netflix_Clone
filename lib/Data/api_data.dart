@@ -1,6 +1,9 @@
 // ignore_for_file: avoid_print
+import 'package:project_netflix_clone/Model/movie_details.dart';
 import 'package:project_netflix_clone/Model/movie_model.dart';
+import 'package:project_netflix_clone/Model/movie_recommedation.dart';
 import 'package:project_netflix_clone/Model/popular_tv_series.dart';
+import 'package:project_netflix_clone/Model/search_movie.dart';
 import 'package:project_netflix_clone/Model/top_rated_movie.dart';
 import 'package:project_netflix_clone/Model/trending_movie.dart';
 import 'package:project_netflix_clone/Model/upcoming_movie.dart';
@@ -87,6 +90,59 @@ class ApiData {
       final response = await http.get(Uri.parse(apiUrl));
       if(response.statusCode == 200) {
         return popularTvseriesFromJson(response.body);
+      } else {
+        throw Exception("Failed to load movies");
+      }
+    } catch (e) {
+      print("Error Fetching Movies : $e");
+      return null;
+    }
+  }
+
+  // Movie detail
+  Future<MovieDetail?> movieDetail(int movieId) async {
+    try {
+      final endPoint = "movie/$movieId";
+      final apiUrl = "$baseUrl$endPoint$key";
+      final response = await http.get(Uri.parse(apiUrl));
+      if(response.statusCode == 200) {
+        return movieDetailFromJson(response.body);
+      } else {
+        throw Exception("Failed to load movies");
+      }
+    } catch (e) {
+      print("Error Fetching Movies : $e");
+      return null;
+    }
+  }
+
+  // Movie Recommedations
+  Future<MovieRecommedations?> movieRecommendation(int movieId) async {
+    try {
+      final endPoint = "movie/$movieId/recommedations";
+      final apiUrl = "$baseUrl$endPoint$key";
+      final response = await http.get(Uri.parse(apiUrl));
+      if(response.statusCode == 200) {
+        return movieRecommedationsFromJson(response.body);
+      } else {
+        throw Exception("Failed to load movies");
+      }
+    } catch (e) {
+      print("Error Fetching Movies : $e");
+      return null;
+    }
+  }
+
+  // search Movie
+  Future<SearchMovie?> searchMovie(String query) async {
+    try {
+      final endPoint = "search/movie?query=query";
+      final apiUrl = "$baseUrl$endPoint";
+      final response = await http.get(Uri.parse(apiUrl), headers: {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMjI3MjVmYzk4NzgwYjlmMDE0MWUxZTBjODI0NTdlZiIsIm5iZiI6MTc3MjE0MjQzMy42ODMsInN1YiI6IjY5YTBiZjYxMzEzMTI1NTdlY2VmZjQyZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sBes_zB6AzVnGrSo8Q_j-hTICGuED_ybDXI8WRU8dEQ"
+      });
+      if(response.statusCode == 200) {
+        return searchMovieFromJson(response.body);
       } else {
         throw Exception("Failed to load movies");
       }
