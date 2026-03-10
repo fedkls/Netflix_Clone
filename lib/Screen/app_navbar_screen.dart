@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:project_netflix_clone/Screen/hot_news.dart';
 import 'package:project_netflix_clone/Screen/netflix_home_screen.dart';
 import 'package:project_netflix_clone/Screen/search_screen.dart';
 
@@ -24,7 +25,7 @@ class AppNavbarScreen extends StatelessWidget {
           indicatorColor: Colors.transparent,
         ),
       ),
-        body: TabBarView(children: [NetflixHomeScreen(), SearchScreen(), Scaffold()]),
+        body: TabBarView(children: [NetflixHomeScreen(), SearchScreen(), HotNews()]),
       ),
     );
   }
