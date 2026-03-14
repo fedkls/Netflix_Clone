@@ -40,87 +40,87 @@ class Result {
   bool adult;
   String backdropPath;
   int id;
-  String? title;
-  String? originalTitle;
+  String? name;
+  String? originalName;
   String overview;
   String posterPath;
   MediaType mediaType;
-  OriginalLanguage originalLanguage;
+  String originalLanguage;
   List<int> genreIds;
   double popularity;
-  DateTime? releaseDate;
-  bool? video;
+  DateTime? firstAirDate;
   double voteAverage;
   int voteCount;
-  String? name;
-  String? originalName;
-  DateTime? firstAirDate;
-  List<OriginCountry>? originCountry;
+  List<String>? originCountry;
+  String? title;
+  String? originalTitle;
+  DateTime? releaseDate;
+  bool? video;
 
   Result({
     required this.adult,
     required this.backdropPath,
     required this.id,
-    this.title,
-    this.originalTitle,
+    this.name,
+    this.originalName,
     required this.overview,
     required this.posterPath,
     required this.mediaType,
     required this.originalLanguage,
     required this.genreIds,
     required this.popularity,
-    this.releaseDate,
-    this.video,
+    this.firstAirDate,
     required this.voteAverage,
     required this.voteCount,
-    this.name,
-    this.originalName,
-    this.firstAirDate,
     this.originCountry,
+    this.title,
+    this.originalTitle,
+    this.releaseDate,
+    this.video,
   });
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
     adult: json["adult"],
     backdropPath: json["backdrop_path"],
     id: json["id"],
-    title: json["title"],
-    originalTitle: json["original_title"],
+    name: json["name"],
+    originalName: json["original_name"],
     overview: json["overview"],
     posterPath: json["poster_path"],
     mediaType: mediaTypeValues.map[json["media_type"]]!,
-    originalLanguage: originalLanguageValues.map[json["original_language"]]!,
+    originalLanguage: json["original_language"],
     genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
     popularity: json["popularity"]?.toDouble(),
-    releaseDate: json["release_date"] == null ? null : DateTime.parse(json["release_date"]),
-    video: json["video"],
+    firstAirDate: json["first_air_date"] == null ? null : DateTime.parse(json["first_air_date"]),
     voteAverage: json["vote_average"]?.toDouble(),
     voteCount: json["vote_count"],
-    name: json["name"],
-    originalName: json["original_name"],
-    firstAirDate: json["first_air_date"] == null ? null : DateTime.parse(json["first_air_date"]),
-    originCountry: json["origin_country"] == null ? [] : List<OriginCountry>.from(json["origin_country"]!.map((x) => originCountryValues.map[x]!)),
+    originCountry: json["origin_country"] == null ? [] : List<String>.from(json["origin_country"]!.map((x) => x)),
+    title: json["title"],
+    originalTitle: json["original_title"],
+    releaseDate: json["release_date"] == null ? null : DateTime.parse(json["release_date"]),
+    video: json["video"],
   );
 
   Map<String, dynamic> toJson() => {
     "adult": adult,
     "backdrop_path": backdropPath,
     "id": id,
-    "title": title,
-    "original_title": originalTitle,
+    "name": name,
+    "original_name": originalName,
     "overview": overview,
     "poster_path": posterPath,
     "media_type": mediaTypeValues.reverse[mediaType],
-    "original_language": originalLanguageValues.reverse[originalLanguage],
+    "original_language": originalLanguage,
     "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
     "popularity": popularity,
-    "release_date": "${releaseDate!.year.toString().padLeft(4, '0')}-${releaseDate!.month.toString().padLeft(2, '0')}-${releaseDate!.day.toString().padLeft(2, '0')}",
-    "video": video,
+    "first_air_date": "${firstAirDate!.year.toString().padLeft(4, '0')}-${firstAirDate!.month.toString().padLeft(2, '0')}-${firstAirDate!.day.toString().padLeft(2, '0')}",
     "vote_average": voteAverage,
     "vote_count": voteCount,
-    "name": name,
-    "original_name": originalName,
-    "first_air_date": "${firstAirDate!.year.toString().padLeft(4, '0')}-${firstAirDate!.month.toString().padLeft(2, '0')}-${firstAirDate!.day.toString().padLeft(2, '0')}",
-    "origin_country": originCountry == null ? [] : List<dynamic>.from(originCountry!.map((x) => originCountryValues.reverse[x])),
+    "origin_country": originCountry == null ? [] : List<dynamic>.from(originCountry!.map((x) => x)),
+    "title": title,
+    "original_title": originalTitle,
+    "release_date": "${releaseDate!.year.toString().padLeft(4, '0')}-${releaseDate!.month.toString().padLeft(2, '0')}-${releaseDate!.day.toString().padLeft(2, '0')}",
+    "video": video,
   };
 }
 
@@ -132,28 +132,6 @@ enum MediaType {
 final mediaTypeValues = EnumValues({
   "movie": MediaType.MOVIE,
   "tv": MediaType.TV
-});
-
-enum OriginCountry {
-  GB,
-  KR,
-  US
-}
-
-final originCountryValues = EnumValues({
-  "GB": OriginCountry.GB,
-  "KR": OriginCountry.KR,
-  "US": OriginCountry.US
-});
-
-enum OriginalLanguage {
-  EN,
-  KO
-}
-
-final originalLanguageValues = EnumValues({
-  "en": OriginalLanguage.EN,
-  "ko": OriginalLanguage.KO
 });
 
 class EnumValues<T> {

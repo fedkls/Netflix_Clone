@@ -120,7 +120,7 @@ class ApiData {
   // Movie Recommedations
   Future<MovieRecommedations?> movieRecommendation(int movieId) async {
     try {
-      final endPoint = "movie/$movieId/recommedations";
+      final endPoint = "movie/$movieId/recommendations";
       final apiUrl = "$baseUrl$endPoint$key";
       final response = await http.get(Uri.parse(apiUrl));
       if(response.statusCode == 200) {
@@ -137,9 +137,9 @@ class ApiData {
   // search Movie
   Future<SearchMovie?> searchMovie(String query) async {
     try {
-      final endPoint = "search/movie?query=query";
+      final endPoint = "search/movie?query=$query";
       final apiUrl = "$baseUrl$endPoint";
-      final response = await http.get(Uri.parse(apiUrl), headers: {
+      final response = await http.get(Uri.parse(apiUrl),headers: {
         "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMjI3MjVmYzk4NzgwYjlmMDE0MWUxZTBjODI0NTdlZiIsIm5iZiI6MTc3MjE0MjQzMy42ODMsInN1YiI6IjY5YTBiZjYxMzEzMTI1NTdlY2VmZjQyZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sBes_zB6AzVnGrSo8Q_j-hTICGuED_ybDXI8WRU8dEQ"
       });
       if(response.statusCode == 200) {

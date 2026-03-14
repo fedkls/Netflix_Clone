@@ -20,18 +20,19 @@ class _MovieDetailedScreenState extends State<MovieDetailedScreen> {
   late Future<MovieRecommedations?> movieRecommendation;
   @override
   void initState() {
-    fetchMovieData();
     super.initState();
-  }
-
-
-  fetchMovieData() {
     movieDetail = apiData.movieDetail(widget.movieId);
     movieRecommendation = apiData.movieRecommendation(widget.movieId);
-    setState(() {
-
-    });
   }
+
+
+  // fetchMovieData() {
+  //   movieDetail = apiData.movieDetail(widget.movieId);
+  //   movieRecommendation = apiData.movieRecommendation(widget.movieId);
+  //   setState(() {
+  //
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +130,7 @@ class _MovieDetailedScreenState extends State<MovieDetailedScreen> {
                             Row(
                               children: [
                                 Text(
-                                  movie.releaseDate.year.toString(),
+                                  (movie.releaseDate?.year ?? 0).toString(),
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -138,7 +139,7 @@ class _MovieDetailedScreenState extends State<MovieDetailedScreen> {
                                 ),
                                 SizedBox(width: 10),
                                 Text(
-                                  formatRuntime(movie.runtime),
+                                  formatRuntime(movie.runtime ?? 0),
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,

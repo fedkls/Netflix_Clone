@@ -62,7 +62,7 @@ class Dates {
 
 class Result {
   bool adult;
-  String backdropPath;
+  String? backdropPath;
   List<int> genreIds;
   int id;
   OriginalLanguage originalLanguage;
@@ -130,15 +130,15 @@ class Result {
 
 enum OriginalLanguage {
   EN,
-  FR,
-  NO,
+  JA,
+  RU,
   ZH
 }
 
 final originalLanguageValues = EnumValues({
   "en": OriginalLanguage.EN,
-  "fr": OriginalLanguage.FR,
-  "no": OriginalLanguage.NO,
+  "ja": OriginalLanguage.JA,
+  "ru": OriginalLanguage.RU,
   "zh": OriginalLanguage.ZH
 });
 

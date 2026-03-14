@@ -27,12 +27,12 @@ class _NetflixHomeScreenState extends State<NetflixHomeScreen> {
   late Future<PopularTvseries?> popularTVseries;
   @override
   void initState() {
+    super.initState();
     movieDate = apiData.fetchMovies();
     upcomingMovies = apiData.upcomingMovies();
     topRatedMovies = apiData.topRatedMovies();
     trendingMovies = apiData.trendingMovies();
     popularTVseries = apiData.popularTvSeries();
-    super.initState();
   }
   @override
   Widget build(BuildContext context) {
@@ -163,12 +163,12 @@ class _NetflixHomeScreenState extends State<NetflixHomeScreen> {
                                   return GestureDetector(
                                     onTap: () {
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => MovieDetailedScreen(
-                                                  movieId: movie.id,
-                                              ),
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MovieDetailedScreen(
+                                            movieId: movie.id,
                                           ),
+                                        ),
                                       );
                                     },
                                     child: Container(

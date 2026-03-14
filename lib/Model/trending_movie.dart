@@ -118,10 +118,14 @@ final mediaTypeValues = EnumValues({
 
 enum OriginalLanguage {
   EN,
+  PT,
+  TA
 }
 
 final originalLanguageValues = EnumValues({
   "en": OriginalLanguage.EN,
+  "pt": OriginalLanguage.PT,
+  "ta": OriginalLanguage.TA
 });
 
 class EnumValues<T> {

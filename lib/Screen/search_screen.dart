@@ -17,7 +17,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   ApiData apiData = ApiData();
   TextEditingController searchController = TextEditingController();
-  late Future<TrendingMovies?> trendingMovie;
+  late Future<TrendingMovies?> trendingMovies;
   SearchMovie? searchMovie;
   void search(String query) {
     apiData.searchMovie(query).then((result) {
@@ -29,8 +29,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void initState() {
-    trendingMovie = apiData.trendingMovies();
     super.initState();
+    trendingMovies = apiData.trendingMovies();
   }
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class _SearchScreenState extends State<SearchScreen> {
             SizedBox(height: 10),
             searchController.text.isEmpty
               ? FutureBuilder(
-              future: trendingMovie,
+              future: trendingMovies,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   final movie = snapshot.data?.results;
@@ -158,6 +158,7 @@ class _SearchScreenState extends State<SearchScreen> {
               padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
+                itemCount: searchMovie!.results.length,
                 itemBuilder: (context, index) {
                   final search = searchMovie!.results[index];
                   return search.backdropPath == null

@@ -117,15 +117,11 @@ final mediaTypeValues = EnumValues({
 });
 
 enum OriginalLanguage {
-  EN,
-  FR,
-  HI
+  EN
 }
 
 final originalLanguageValues = EnumValues({
-  "en": OriginalLanguage.EN,
-  "fr": OriginalLanguage.FR,
-  "hi": OriginalLanguage.HI
+  "en": OriginalLanguage.EN
 });
 
 class EnumValues<T> {
