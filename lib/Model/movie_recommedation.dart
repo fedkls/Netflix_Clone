@@ -28,6 +28,7 @@ class MovieRecommedations {
     totalResults: json["total_results"],
   );
 
+
   Map<String, dynamic> toJson() => {
     "page": page,
     "results": List<dynamic>.from(results.map((x) => x.toJson())),

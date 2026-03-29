@@ -315,20 +315,55 @@ class _MovieDetailedScreenState extends State<MovieDetailedScreen> {
                                   height: 200,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                      shrinkWrap: true,
-                                      padding: EdgeInsets.zero,
-                                      itemCount: movie.results.length,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.only(right: 5),
-                                          child: CachedNetworkImage(
-                                              imageUrl: "$imageUrl${movie.results[index].posterPath}",
-                                              height: 200,
-                                              width: 150,
-                                              fit: BoxFit.cover,
+                                    shrinkWrap: true,
+                                    padding: EdgeInsets.zero,
+                                    itemCount: movie.results.length,
+                                    itemBuilder: (context, index) {
+                                      final recommendedMovie = movie.results[index];
+
+                                      final posterPath = recommendedMovie.posterPath;
+                                      final posterUrl = (posterPath.isNotEmpty)
+                                          ? "$imageUrl$posterPath"
+                                          : null;
+
+                                      return Padding(
+                                        padding: const EdgeInsets.only(right: 5),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => MovieDetailedScreen(
+                                                  movieId: recommendedMovie.id,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: Container(
+                                            height: 200,
+                                            width: 150,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(8),
+                                              color: Colors.grey[800],
+                                            ),
+                                            child: posterUrl != null
+                                                ? ClipRRect(
+                                              borderRadius: BorderRadius.circular(8),
+                                              child: CachedNetworkImage(
+                                                imageUrl: posterUrl,
+                                                fit: BoxFit.cover,
+                                                errorWidget: (context, url, error) =>
+                                                    Icon(Icons.error, color: Colors.white),
+                                              ),
+                                            )
+                                                : Center(
+                                              child: Icon(Icons.image_not_supported,
+                                                  color: Colors.white),
+                                            ),
                                           ),
-                                        );
-                                      },
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
                               ],

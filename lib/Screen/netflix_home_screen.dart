@@ -9,6 +9,7 @@ import 'package:project_netflix_clone/Model/upcoming_movie.dart';
 import 'package:project_netflix_clone/Screen/movie_detailed_screen.dart';
 import 'package:project_netflix_clone/Screen/search_screen.dart';
 import 'package:project_netflix_clone/Utils/utils.dart';
+import 'package:project_netflix_clone/Widgets/movie_list.dart';
 
 class NetflixHomeScreen extends StatefulWidget {
   const NetflixHomeScreen({super.key});
@@ -261,100 +262,30 @@ class _NetflixHomeScreenState extends State<NetflixHomeScreen> {
             ),
           ),
           SizedBox(height: 30),
-          MoviesType(
+          MoviesTypeWidget(
             future: trendingMovies,
             movieType: "Trending Movies on Netflix",
+            imageUrl: imageUrl,
           ),
-          MoviesType(
+          MoviesTypeWidget(
               future: upcomingMovies,
               movieType: "Upcoming Movies",
+              imageUrl: imageUrl,
               // isReverse: true,
           ),
-          MoviesType(
+          MoviesTypeWidget(
             future: popularTVseries,
             movieType: "Popular TV Series - Most-Watch For You",
+            imageUrl: imageUrl,
           ),
-          MoviesType(
+          MoviesTypeWidget(
             future: topRatedMovies,
             movieType: "Top Rated Movies",
+            imageUrl: imageUrl,
           ),
         ],
       ),
       ),
-    );
-  }
-  Padding MoviesType({
-    required Future future,
-    required String movieType,
-    bool isReverse = false,
-  }) {
-    return Padding(
-        padding: EdgeInsets.only(left: 10, top: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              movieType,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: Colors.white
-              ),
-            ),
-            SizedBox(
-                height: 100, 
-                width: double.maxFinite,
-                child: FutureBuilder(
-                    future: future,
-                    builder: (context, snapshot) {
-                      if(snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return Center(child: Text("Error : ${snapshot.error}"));
-                      } else if (snapshot.hasData) {
-                        final movies = snapshot.data!.results;
-                        return ListView.builder(
-                          reverse: isReverse,
-                          itemCount: movies.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            final movie = movies[index];
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 8),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MovieDetailedScreen(
-                                        movieId: movie.id,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  width: 130,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: CachedNetworkImageProvider("$imageUrl${movie.posterPath}")
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      }
-                      else {
-                        return Center(child: Text("problem to fetch data"));
-                      }
-                    }
-                ),
-            ),
-          ],
-        ),
-
     );
   }
 }

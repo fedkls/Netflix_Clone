@@ -22,10 +22,12 @@ class TrendingMovies {
   });
 
   factory TrendingMovies.fromJson(Map<String, dynamic> json) => TrendingMovies(
-    page: json["page"],
-    results: List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
-    totalPages: json["total_pages"],
-    totalResults: json["total_results"],
+    page: json["page"] ?? 1,
+    results: json["results"] == null
+        ? []
+        : List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+    totalPages: json["total_pages"] ?? 1,
+    totalResults: json["total_results"] ?? 0,
   );
 
   Map<String, dynamic> toJson() => {
@@ -72,21 +74,25 @@ class Result {
   });
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
-    adult: json["adult"],
-    backdropPath: json["backdrop_path"],
-    id: json["id"],
-    title: json["title"],
-    originalTitle: json["original_title"],
-    overview: json["overview"],
-    posterPath: json["poster_path"],
-    mediaType: mediaTypeValues.map[json["media_type"]]!,
-    originalLanguage: originalLanguageValues.map[json["original_language"]]!,
-    genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
-    popularity: json["popularity"]?.toDouble(),
-    releaseDate: DateTime.parse(json["release_date"]),
-    video: json["video"],
-    voteAverage: json["vote_average"]?.toDouble(),
-    voteCount: json["vote_count"],
+    adult: json["adult"] ?? false,
+    backdropPath: json["backdrop_path"] ?? "",
+    id: json["id"] ?? 0,
+    title: json["title"] ?? "",
+    originalTitle: json["original_title"] ?? "",
+    overview: json["overview"] ?? "",
+    posterPath: json["poster_path"] ?? "",
+    mediaType: mediaTypeValues.map[json["media_type"]] ?? MediaType.MOVIE,
+    originalLanguage: originalLanguageValues.map[json["original_language"]] ?? OriginalLanguage.EN,
+    genreIds: json["genre_ids"] == null
+        ? []
+        : List<int>.from(json["genre_ids"].map((x) => x)),
+    popularity: (json["popularity"] ?? 0).toDouble(),
+    releaseDate: json["release_date"] != null && json["release_date"] != ""
+        ? DateTime.tryParse(json["release_date"]) ?? DateTime(2000)
+        : DateTime(2000),
+    video: json["video"] ?? false,
+    voteAverage: (json["vote_average"] ?? 0).toDouble(),
+    voteCount: json["vote_count"] ?? 0,
   );
 
   Map<String, dynamic> toJson() => {
@@ -118,14 +124,16 @@ final mediaTypeValues = EnumValues({
 
 enum OriginalLanguage {
   EN,
-  PT,
-  TA
+  ES,
+  KO,
+  TH
 }
 
 final originalLanguageValues = EnumValues({
   "en": OriginalLanguage.EN,
-  "pt": OriginalLanguage.PT,
-  "ta": OriginalLanguage.TA
+  "es": OriginalLanguage.ES,
+  "ko": OriginalLanguage.KO,
+  "th": OriginalLanguage.TH
 });
 
 class EnumValues<T> {

@@ -22,10 +22,12 @@ class SearchMovie {
   });
 
   factory SearchMovie.fromJson(Map<String, dynamic> json) => SearchMovie(
-    page: json["page"],
-    results: List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
-    totalPages: json["total_pages"],
-    totalResults: json["total_results"],
+    page: json["page"] ?? 1,
+    results: json["results"] == null
+        ? []
+        : List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+    totalPages: json["total_pages"] ?? 1,
+    totalResults: json["total_results"] ?? 0,
   );
 
   Map<String, dynamic> toJson() => {
@@ -70,20 +72,24 @@ class Result {
   });
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
-    adult: json["adult"],
+    adult: json["adult"] ?? false,
     backdropPath: json["backdrop_path"],
-    genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
-    id: json["id"],
-    originalLanguage: json["original_language"],
-    originalTitle: json["original_title"],
-    overview: json["overview"],
-    popularity: json["popularity"]?.toDouble(),
+    genreIds: json["genre_ids"] == null
+        ? []
+        : List<int>.from(json["genre_ids"].map((x) => x)),
+    id: json["id"] ?? 0,
+    originalLanguage: json["original_language"] ?? "",
+    originalTitle: json["original_title"] ?? "",
+    overview: json["overview"] ?? "",
+    popularity: (json["popularity"] ?? 0).toDouble(),
     posterPath: json["poster_path"],
-    releaseDate: DateTime.parse(json["release_date"]),
-    title: json["title"],
-    video: json["video"],
-    voteAverage: json["vote_average"]?.toDouble(),
-    voteCount: json["vote_count"],
+    releaseDate: json["release_date"] != null && json["release_date"] != ""
+        ? DateTime.tryParse(json["release_date"]) ?? DateTime(2000)
+        : DateTime(2000),
+    title: json["title"] ?? "",
+    video: json["video"] ?? false,
+    voteAverage: (json["vote_average"] ?? 0).toDouble(),
+    voteCount: json["vote_count"] ?? 0,
   );
 
   Map<String, dynamic> toJson() => {
